@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context="com.effone.notificationmummy.fragments.RecieveNotificaitionFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+<android.support.v7.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/tb_toolbar"></android.support.v7.widget.Toolbar>
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:id="@+id/lv_listView"
+        android:divider="@color/titleColor"
+        android:dividerHeight="1dp"
+        android:groupIndicator="@null"
+        android:layout_height="match_parent">
+
+    </ExpandableListView>
+
+
+        <TextView
+            android:id="@+id/tv_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="asdasdasd"
+            android:padding="5dp"
+
+           android:textColor="@android:color/darker_gray"
+            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:textStyle="italic"
+            android:textColor="#d3d3d3"
+            android:textSize="18sp" />
+    </LinearLayout>
+</FrameLayout>

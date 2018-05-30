@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="50dp"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:id="@+id/child"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:gravity="left|center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_gravity="center">
+
+        <Switch
+            android:id="@+id/sw_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:theme="@style/SCBSwitch"
+            android:checked="true"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="22"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

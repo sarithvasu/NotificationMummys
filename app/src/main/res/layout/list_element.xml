@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_notification_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:layout_marginTop="@dimen/list_el_margin_top"
+    android:layout_marginBottom="@dimen/list_el_margin_bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/app_image"
+            android:layout_width="@dimen/app_icon_width"
+
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/app_icon_margin" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="App Name"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sw_bar"/>
+
+        <TextView
+            android:id="@+id/app_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/app_name"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="bottom"
+            android:textSize="18sp"
+            android:layout_toEndOf="@+id/app_name"
+            android:layout_toRightOf="@+id/app_name"
+            android:padding="5dp"
+            android:text="23"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

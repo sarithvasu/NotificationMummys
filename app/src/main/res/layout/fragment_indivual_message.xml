@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    tools:context="com.effone.notificationmummy.fragments.IndivalMessageFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:collapseIcon="@drawable/ic_back_arrow"
+            android:background="@color/colorPrimaryDark"
+            >
+
+        </android.support.v7.widget.Toolbar>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+
+</FrameLayout>

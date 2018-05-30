@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/blockedAll"
+        android:title="Setting"
+        android:icon="@drawable/ic_blocked_app"
+        />
+    <item
+        android:id="@+id/faq"
+        android:title="FAQ"
+        android:icon="@drawable/ic_blocked_app"
+        />
+    <item
+        android:id="@+id/about_us"
+        android:title="About Us"
+        android:icon="@drawable/ic_blocked_app"
+        />
+</menu>
