@@ -229,7 +229,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 "INNER JOIN user_package T3 ON T3.user_package_id = T2.user_package_id    " +
                 "AND T3.app_name = '"+appName+"'    " +
                 "GROUP BY T1.sender_name    " +
-                "ORDER BY T1.sender_id DESC";
+                "ORDER BY T2.sender_message_time_stamp DESC";
 
 
         Cursor cursor = db.rawQuery(query, null);
