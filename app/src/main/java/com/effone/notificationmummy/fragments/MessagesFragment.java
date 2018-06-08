@@ -185,11 +185,14 @@ public class MessagesFragment extends Fragment implements View.OnClickListener {
 
        }else{
            mRecyclerView.setVisibility(View.GONE);
-           mTvErrorMessage.setVisibility(View.VISIBLE);
-           mTvErrorMessage.setTextSize(18);
-           mTvErrorMessage.setText("Unable to get the media file.");
-       /*    mView.setVisibility(View.GONE);
-         mLvMediaHeader.setVisibility(View.GONE);*/
+           if(!messageImages.get(0).getMessage_type().equals("text")) {
+               mTvErrorMessage.setVisibility(View.VISIBLE);
+               mTvErrorMessage.setTextSize(18);
+               mTvErrorMessage.setText("Oops! Unable to fetch "+messageImages.get(0).getSender_message());
+           }else {
+           mView.setVisibility(View.GONE);
+         mLvMediaHeader.setVisibility(View.GONE);
+           }
        }
     }
 

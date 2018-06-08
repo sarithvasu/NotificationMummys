@@ -64,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
                                                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                                                                new DialogInterface.OnClickListener() {
                                                                    public void onClick(DialogInterface dialog, int which) {
-
+                                                                       mSw_bar.setChecked(false);
                                                                        dialog.dismiss();
                                                                    }
                                                                });

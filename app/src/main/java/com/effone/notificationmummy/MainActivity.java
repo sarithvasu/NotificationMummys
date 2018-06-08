@@ -16,6 +16,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -41,7 +42,10 @@ public class MainActivity extends AppCompatActivity implements NotificationAcces
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
           /*  appName.add("com.whatsapp");*/
+          
         mContext = MainActivity.this;
+        System.out.print(System.currentTimeMillis()+"zczccz");
+        Log.e("","dada");
         dataBaseHandler = DataBaseHandler.getInstance(mContext);
         if (!NotificationListener.isNotificationAccessEnabled) {
             DialogFragment dialog = new NotificationAccessDialogFragment();

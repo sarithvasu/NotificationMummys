@@ -47,12 +47,12 @@
 
 
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/faq_list"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="match_parent"
-
+        android:groupIndicator="@null"
         android:layout_marginTop="10dp"
         android:divider="@null"
         android:dividerHeight="0dp" />

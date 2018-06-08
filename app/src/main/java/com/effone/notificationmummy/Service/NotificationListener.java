@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.effone.notificationmummy.common.AppInfo;
@@ -24,6 +25,7 @@ import java.util.Date;
 public class NotificationListener extends NotificationListenerService {
     public static boolean isNotificationAccessEnabled = false;
     public static ArrayList<AppInfo> appName=new ArrayList<>();
+    private String mPreviousKey;
 
 
     @Override
@@ -39,8 +41,10 @@ public class NotificationListener extends NotificationListenerService {
 
         if (!sbn.isOngoing()) {
             if (sbn.getTag() != null) {
-                if (!sbn.getKey().contains("null")) {
+                if (!sbn.getKey().equals(mPreviousKey)&&!sbn.getKey().contains("null")) {
+                    mPreviousKey=sbn.getKey();
                     storeNotification(sbn);
+
                 }
             }
         }

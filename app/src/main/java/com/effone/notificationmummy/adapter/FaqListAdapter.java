@@ -1,98 +1,114 @@
 package com.effone.notificationmummy.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.effone.notificationmummy.R;
 import com.effone.notificationmummy.model.Faq;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by sarith.vasu on 20-05-2016.
  */
-public class FaqListAdapter extends ArrayAdapter<Faq> {
-    private ArrayList<Faq> values;
-    private LayoutInflater inflater;
+public class FaqListAdapter extends BaseExpandableListAdapter {
 
-    public FaqListAdapter(Context context, int resource, List<Faq> values) {
-        super(context, resource, values);
-        this.values =(ArrayList<Faq>) values;
-        inflater = (LayoutInflater)context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private Context _context;
+    private List<String> _listDataHeader; // header titles
+    // child data in format of header title, child title
+    private HashMap<String, List<String>> _listDataChild;
+
+    public FaqListAdapter(Context context, List<String> listDataHeader,
+                                 HashMap<String, List<String>> listChildData) {
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View vi = convertView;
-        final FilterViewHolder holder;
-
-        if(convertView==null){
-            vi = inflater.inflate(R.layout.faq_list_item, null);
-            holder = new FilterViewHolder();
-            holder.tv_Question = (TextView) vi.findViewById(R.id.tv_question);
-            holder.tv_Answer = (TextView) vi.findViewById(R.id.tv_answer);
-
-
-            vi.setTag( holder );
-        }
-        else
-            holder = (FilterViewHolder) vi.getTag();
-
-        if (values.size() <= 0) {
-            holder.tv_Question.setText("No Data");
-
-        } else {
-            /***** Get each Model object from Arraylist ********/
-
-            Faq value = (Faq) values.get(position);
-
-            /************  Set Model values in Holder elements ***********/
-
-            holder.tv_Question.setText(value.getQuestion());
-            holder.tv_Answer.setText(value.getAnswer());
-
-            holder.tv_Question.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (holder.tv_Answer.getVisibility() == View.VISIBLE) {
-                        holder.tv_Answer.setVisibility(View.GONE);
-                    } else {
-                        holder.tv_Answer.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
-            holder.tv_Answer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if( holder.tv_Answer.getVisibility()== View.VISIBLE){
-                        holder.tv_Answer.setVisibility(View.GONE);
-                    }else{
-                        holder.tv_Answer.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
-
-
-
-
-        }
-
-        return vi;
-
-
-
-    }
-    public static  class FilterViewHolder {
-        TextView tv_Question;
-        TextView tv_Answer;
-
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .get(childPosititon);
     }
 
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
 
+    @Override
+    public View getChildView(int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+
+        final String childText = (String) getChild(groupPosition, childPosition);
+
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.faq_answer, null);
+        }
+
+        TextView txtListChild = (TextView) convertView
+                .findViewById(R.id.tv_answer);
+
+        txtListChild.setText(childText);
+        return convertView;
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .size();
+    }
+
+    @Override
+    public Object getGroup(int groupPosition) {
+        return this._listDataHeader.get(groupPosition);
+    }
+
+    @Override
+    public int getGroupCount() {
+        return this._listDataHeader.size();
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        String headerTitle = (String) getGroup(groupPosition);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.faq_qustion, null);
+        }
+
+        TextView lblListHeader = (TextView) convertView
+                .findViewById(R.id.tv_question);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListHeader.setText(headerTitle);
+
+        return convertView;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
 }

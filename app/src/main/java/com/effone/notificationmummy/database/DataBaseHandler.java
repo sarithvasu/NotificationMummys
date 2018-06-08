@@ -64,6 +64,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private final static String APPPACKAGE = "package_name";
     private final static String APP_NAME = "app_name";
     private final static String IS_ALLOWED = "is_allowed";
+    private long BEFORE_TIME=0;
+    private long AFTER_TIME=0;
 
 
     private String mUserXPackageTable = "CREATE TABLE if not exists " + USERXPACKAGE + "( " + USER_PACKAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
@@ -110,8 +112,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         ContentValues mUserContent = new ContentValues();
         mUserContent.put(SENDER_NAME, notificaitionMessageInfo.getSender_name());
         mUserContent.put(SENDER_PH_NUMBER, notificaitionMessageInfo.getSender_ph_number());
-
+        BEFORE_TIME=System.currentTimeMillis();
+        Log.e("BEFORE",""+System.currentTimeMillis());
         insertDataIntoTables(mPackageContent, mUserContent, mMessageContent);
+        AFTER_TIME=System.currentTimeMillis();
+        Log.e("AFTER",""+System.currentTimeMillis());
+        Log.e("","sadsa");
 
     }
 
