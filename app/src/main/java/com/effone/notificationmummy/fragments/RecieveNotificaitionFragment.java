@@ -2,6 +2,7 @@ package com.effone.notificationmummy.fragments;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,6 +10,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -44,7 +49,7 @@ public class RecieveNotificaitionFragment extends Fragment {
     private DataBaseHandler mDataBaseHandler;
     private Toolbar mToolBar;
 
-    private TextView mTitle,mSubTitle;
+    private TextView mTitle, mSubTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,36 +59,59 @@ public class RecieveNotificaitionFragment extends Fragment {
         mToolBar = view.findViewById(R.id.tb_toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(mToolBar);
-     setHasOptionsMenu(true);
+        final ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_more_icon);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        setHasOptionsMenu(true);
         declaration(view);
         return view;
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
 
+       /* if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         int id = item.getItemId();
 
         if (id == R.id.blockedAll) {
 
 
-            Intent intent=new Intent(getActivity(),SettingActivity.class);
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
             startActivity(intent);
             return true;
         }
-        if(id == R.id.faq){
-            Intent intent=new Intent(getActivity(),FaqActivity.class);
+        if (id == R.id.faq) {
+            Intent intent = new Intent(getActivity(), FaqActivity.class);
             startActivity(intent);
             return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
+    DrawerLayout mDrawer;
+    ActionBarDrawerToggle mDrawerToggle;
 
     private void declaration(View view) {
         mToolBar = view.findViewById(R.id.tb_toolbar);
@@ -92,10 +120,15 @@ public class RecieveNotificaitionFragment extends Fragment {
         mListView = view.findViewById(R.id.lv_listView);
         mDataBaseHandler = DataBaseHandler.getInstance(getActivity());
         mTitle = view.findViewById(R.id.tv_layout);
-        mSubTitle=view.findViewById(R.id.tv_subtitle);
+        mSubTitle = view.findViewById(R.id.tv_subtitle);
         mSubTitle.setVisibility(View.GONE);
         mTitle.setVisibility(View.GONE);
-        ;
+        mDrawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                getActivity(), mDrawer, R.string.app_name, R.string.app_name);
+
+        // Where do I put this?
+        mDrawerToggle.syncState();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -177,8 +210,9 @@ public class RecieveNotificaitionFragment extends Fragment {
         super.onPause();
         getActivity().getContentResolver().unregisterContentObserver(myDataObserver);
     }
-    public static String allowedTitle="Allowed App (S)";
-    public static String denyTitle="Denied App (S)";
+
+    public static String allowedTitle = "Allowed App (S)";
+    public static String denyTitle = "Denied App (S)";
 
 
     private class insertDataIntoAdapter extends AsyncTask<String, Void, HashMap<String, List<AppInfo>>> {
@@ -196,8 +230,8 @@ public class RecieveNotificaitionFragment extends Fragment {
 
                 hashMap.put(names.get(0), child1);
                 hashMap.put(names.get(1), child2);
-            }catch (Exception e){
-                Log.e("DataBase",e.getMessage());
+            } catch (Exception e) {
+                Log.e("DataBase", e.getMessage());
             }
             return hashMap;
         }
@@ -214,7 +248,7 @@ public class RecieveNotificaitionFragment extends Fragment {
         /*NotificationAppViewAdapter notificationAppViewAdapter = new NotificationAppViewAdapter(getActivity(), mListData);*/
                 mListView.setAdapter(notificationAppViewAdapter);
             } else {
-                if(appInstalledOrNot("com.whatsapp")) {
+                if (appInstalledOrNot("com.whatsapp")) {
                     ArrayList<AppInfo> deniedApps = new ArrayList<>();
                     ArrayList<AppInfo> allowedApps = new ArrayList<>();
                     AppInfo appInfo = new AppInfo();
@@ -227,14 +261,14 @@ public class RecieveNotificaitionFragment extends Fragment {
                     ExpandableListAdapter notificationAppViewAdapter = new ExpandableListAdapter(getActivity(), result, names, myInterface);
         /*NotificationAppViewAdapter notificationAppViewAdapter = new NotificationAppViewAdapter(getActivity(), mListData);*/
                     mListView.setAdapter(notificationAppViewAdapter);
-                }else{
+                } else {
                     mListView.setVisibility(View.GONE);
                     mTitle.setVisibility(View.VISIBLE);
                     mSubTitle.setVisibility(View.VISIBLE);
                     mTitle.setText("\n" +
                             "Welcome To WhatsUp Mommy !"
-                           );
-                    mSubTitle.setText( "Your app is now activated. Please wait for an alert to arrive.");
+                    );
+                    mSubTitle.setText("Your app is now activated. Please wait for an alert to arrive.");
                 }
             }
         }
