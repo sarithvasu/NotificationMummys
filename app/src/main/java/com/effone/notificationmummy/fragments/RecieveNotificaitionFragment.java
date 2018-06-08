@@ -123,6 +123,7 @@ public class RecieveNotificaitionFragment extends Fragment {
         mSubTitle = view.findViewById(R.id.tv_subtitle);
         mSubTitle.setVisibility(View.GONE);
         mTitle.setVisibility(View.GONE);
+        //adding the drawerLayout into to the menu items
         mDrawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(), mDrawer, R.string.app_name, R.string.app_name);
